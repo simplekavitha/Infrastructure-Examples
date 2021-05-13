@@ -1,0 +1,3 @@
+#inside host_vars we will create a new file with the same name as of the server i.e localhost  (this is defined servername in inventory file)
+http_port: 8080
+pkg: httpd

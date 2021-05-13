@@ -1,0 +1,12 @@
+---
+#The ansible-playbook command-line tool supports a flag called --list-tasks. This flag prints out the names of all the tasks in a playbook. 
+#It’s a handy way to summarize what a playbook is going to do
+# ansible-playbook -i inventory.ini listtasks.yaml --list-tasks
+- hosts: localhost
+  tasks:
+    - name : display the the name
+      debug:
+        msg: anil
+    - name: display the surname
+      debug:
+        msg: kalleti

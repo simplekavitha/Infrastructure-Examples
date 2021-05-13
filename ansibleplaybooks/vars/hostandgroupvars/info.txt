@@ -1,0 +1,10 @@
+To define host variable we can create a sub-directory host_vars and similarly to define group variable we can create a sub-directory group_vars inside the main project directory.
+
+For example I will create a project "lab1" and copy the ansible.cfg from default directory /etc/ansible/
+
+# host variable are higher precedence than group variables
+
+#Inside host_vars we will create a new file with the same name as of the server i.e. localhost( servername in the inventory file)
+
+
+#we can create group_vars directory under lab1 and use the name of the group to create a new file which will contain the list of variables. Next modify the hosts: entry with the group name instead of server name in the playbook file. (Dev group is created in the inventory file)

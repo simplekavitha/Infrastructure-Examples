@@ -1,0 +1,15 @@
+This is a put
+This is a pit
+This is a pot
+This \s is a pyt
+This is only pt
+Thisisapot
+Thiss
+Thisss
+Thissss
+Thisssss
+thi is a line
+this is a one more line
+.	*	\+	\?
+asdfasdfasdfasdfasdf
+this	is	tab	line

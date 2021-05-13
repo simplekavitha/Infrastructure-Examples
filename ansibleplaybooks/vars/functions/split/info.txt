@@ -1,0 +1,2 @@
+If you need to split based on any other characters, you can input that in the split command.For example, in the below example, I am splitting the variable ‘split_value’ whenever a space character is seen. The default split character is ‘space’.  So I am not giving any argument for the same. It is similar to the python split operation.You can use the ‘split()’ function to divide a line into smaller parts. The output will be a list or dictionary. This is a Python function and not a Jinja2 filter.
+{{  ansible_nodename.split(".")[0] | lower }}

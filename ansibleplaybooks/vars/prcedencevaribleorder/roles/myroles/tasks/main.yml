@@ -1,0 +1,3 @@
+---
+- debug:  
+    var:  day_of_the_week 

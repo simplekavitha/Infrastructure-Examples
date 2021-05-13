@@ -1,0 +1,33 @@
+---
+- hosts: localhost
+  vars:
+    name: anil
+    surname: kalleti
+    family: [ sivaiah , poornammma , kavitha ]
+    brother:
+      name: naresh
+      wife: malleswari
+    sister:
+      name: sunitha
+      husband: anjaneyulu
+    things:
+      fan:
+        wings: 2
+        wheels: 4
+      cooler:
+        wings: 
+          - 4
+          - 3
+        wheels: 4
+  tasks:
+    - name: display {{ name }} {{ surname }} family details
+      debug:
+        msg: his father name is {{ family[0] }} and his mother name is {{ family[1] }}
+    - name: display values
+      debug:
+        msg: |
+             His brother name is {{ brother['name'] }}  and his brother wife name is {{ brother.wife }} \n
+             his sister name is "{{ sister['name'] }}"
+             wheels are {{ things.fan['wings'] }}
+             fans are {{ things.fan.wheels }}
+             coller wheels are {{ things.cooler.wings }}  and cooler wings are {{ things.cooler.wings[1] }} 

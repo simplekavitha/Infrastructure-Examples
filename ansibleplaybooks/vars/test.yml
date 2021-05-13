@@ -1,0 +1,8 @@
+---
+- hosts: all
+  gather_facts: true
+  tasks:
+    - name: display the mesaage
+      debug:
+        msg: display hostname "{{ ansible_hostname}}"
+       

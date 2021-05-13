@@ -1,0 +1,13 @@
+Fname: anil
+surname: kalleti
+gender:
+   - male
+   - female
+dresses:
+   formal:
+     shirt: red
+   informal:
+     pant: green
+     lungi:
+       - white
+       - yellow

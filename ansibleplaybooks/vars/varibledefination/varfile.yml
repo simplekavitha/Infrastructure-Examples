@@ -1,0 +1,12 @@
+---
+#Ansible also allows you to put variables into one or more files, using a section called vars_files. Let’s say we want to take the preceding example and put the variables in a file named nginx.yml inst#ead of putting them right in the playbook. We would replace the vars section with a vars_files that looks like this
+- hosts: localhost
+  vars_files:
+    - "./varsfilesvalues.yml"
+  vars:
+    Fname: kumar
+  tasks:
+    - name: display the values
+      debug:
+        msg: "{{ dresses.informal.lungi[1] }}  and name is {{ Fname }}" 
+  

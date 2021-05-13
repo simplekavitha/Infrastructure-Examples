@@ -1,0 +1,10 @@
+By default, when Ansible is running through a playbook and encounters an error, Ansible will remove the failed host from the list of play hosts and continue with the tasks or plays. Ansible will stop executing once either all the requested hosts for a play have failed, or all the plays have been completed. To change this behavior, there are a couple of play controls that can be employed. Those controls are any_errors_fatal and max_fail_percentage.
+
+The any_errors_fatal optionThis setting instructs Ansible to consider the entire operation to be fatal and stop executing immediately if any host encounters an error. To demonstrate this, we'll add a new group to our mastery-hosts inventory using a pattern that will expand up to ten new hosts:
+
+
+
+The max_fail_percentage optionThis setting allows play developers to define a percentage of hosts that can fail before the whole operation is aborted. At the end of each task, Ansible will perform a math operation to determine the number of the hosts targeted by the play that have reached a failure state, and if that number is greater than the number allowed, Ansible will abort the playbook. 
+
+
+This is similar to any_errors_fatal, in fact, any_errors_fatal internally just expresses a max_fail_percentage parameter of 0, where any failure is considered fatal. Let's edit our play from the preceding and change our max_fail_percentage parameter to 20:

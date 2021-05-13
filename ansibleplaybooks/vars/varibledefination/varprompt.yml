@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  vars_prompt:
+    - name: "database"
+      prompt: "which vesion do you want to install"
+  vars:
+    backend: " {{ database }} "
+  tasks:
+    - name: display the message
+      debug:
+        msg: " read three values are {{ backend }} "
+      when: backend != "postgress"
+
+

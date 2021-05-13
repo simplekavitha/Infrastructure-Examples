@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  vars:
+    day_of_the_week: Friday
+  pre_tasks:
+    - set_fact:
+        day_of_the_week: wednesday
+  roles:
+    - name: myroles
+      vars:
+        day_of_the_week: monday
+    - name: myroles
+      vars:
+        day_of_the_week: Tuesday
+    

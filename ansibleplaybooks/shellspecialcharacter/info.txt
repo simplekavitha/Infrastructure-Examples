@@ -1,0 +1,6 @@
+the special characters are in regular expression here
+
+\s ---> matches for space
+\ --> removing the special character of the meaning
+\t --> matches for the tab
+.  ---> matches any character, excluding new line
