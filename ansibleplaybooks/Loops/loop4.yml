@@ -1,0 +1,21 @@
+
+---
+- name: loop variable condition example
+  # become: yes
+  hosts: localhost
+  vars:
+    packages:
+      - name: neofetch
+        required: True
+      - name: cpu-checker
+        required: True
+      - name: screenfetch
+        required: False
+  tasks:
+    - name: Install "{{ item.name }}" on Ubuntu
+      debug:
+        msg:  " {{ item.name }}"
+      when:
+        - item.required == True
+        - ansible_facts['distribution'] =="Ubuntu"
+      loop: "{{ packages }}"

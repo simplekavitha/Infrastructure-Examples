@@ -1,0 +1,13 @@
+#You can loop through Ansible dictionary variable using the with_dict parameter. In the following task, I have declared a variable ‘Fruits’ with 3 key-value pairs.
+#I am using the with_dict to loop through all the values
+- hosts: localhost
+  vars:
+    Fruits:
+      Apple: 'Red'
+      Orange: 'Orange'
+      Grapes: 'Grapes'
+  tasks:
+    - name: Ansible dictionary loop Example
+      debug:
+        msg: "Key is {{ item.key}} and color is {{item.value}}"
+      with_dict: "{{ Fruits }}"

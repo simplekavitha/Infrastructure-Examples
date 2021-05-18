@@ -1,0 +1,16 @@
+#You can also use the “when” conditional statement along with the loop structure. Thus you can control the looping based on a variable or system facts.
+#
+#The following example will run the task when the loop value is the same as the “loop_1” variable. Note that “item” is not enclosed in double brackets.
+- hosts: localhost
+  vars:
+    loop_1: "hello1"
+  tasks:
+    - name: Ansible loop with conditional example
+      debug:
+        msg: "{{ item }}"
+      with_items:
+        - "hello1"
+        - "hello2"
+        - "hello3"
+      when: item == "{{ loop_1 }}"
+      when: ansible_distribution == "MacOSX"

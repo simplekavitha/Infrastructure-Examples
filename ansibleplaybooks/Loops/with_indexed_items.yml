@@ -1,0 +1,18 @@
+#In some scenarios knowing the index value might come in handy. You can use the “with indexed_items” for this. The loop index will be available at item.0 and the value will be available at item.1. index value starts at zero as usual.
+
+- hosts: localhost
+  tasks:
+    - name: Ansible loop with index example
+      debug:
+        msg: "echo loop index at {{ item.0 }} and value at {{item.1}}"
+      with_indexed_items:
+        - "hello1"
+        - "hello2"
+        - "hello3"
+    - name: Ansible loop with index modification example
+      debug:
+        msg: "echo loop index at {{ item.0 + 1}} and value at {{item.1}}"
+      with_indexed_items:
+        - "hello1"
+        - "hello2"
+        - "hello3"
