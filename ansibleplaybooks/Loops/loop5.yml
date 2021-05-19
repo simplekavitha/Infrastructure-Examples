@@ -1,0 +1,22 @@
+--- 
+- hosts: localhost
+  tasks:
+    - debug:
+        msg: "{{ item }}"
+      vars:
+        nested_list:
+          - - one
+            - two
+            - three
+      with_items: "{{ nested_list }}"
+
+     # This will run debug once with the three items
+    - debug:
+        msg: "{{ item }}"
+      vars:
+        nested_list:
+          - - one
+            - two
+            - three
+      with_items:
+        - "{{ nested_list }}"

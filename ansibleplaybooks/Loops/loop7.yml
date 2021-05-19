@@ -1,0 +1,39 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    postgresql_users:
+      prod:
+        - group: ca
+          users:
+            - user1
+            - user2
+            - user3
+        - group: devops
+          users:
+            - user4
+            - user5
+      test:
+        - group: group3
+          users:
+            - user6
+            - user7
+        - group: group4
+          users:
+            - user8
+            - user9
+
+    env: prod
+  tasks:
+    - set_fact:
+        myvar: "{{ myvar|default([])|union([item.1]) }}"
+      with_subelements:
+        - "{{ postgresql_users[env] }}"
+        - users
+    - debug:
+        var: myvar
+    - debug:
+        msg: "{{ item  }}"
+      with_items: 
+        - "{{ myvar }}"
+

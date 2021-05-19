@@ -1,0 +1,47 @@
+The following table shows some of the operations that administrators can use when working with conditionals:
+
+OPERATION	                                                                         EXAMPLE
+Equal (value is a string) 							       ansible_machine == “x86_64”
+Equal (value is numeric)								max_memory == 512
+Less than										min_memory < 128
+Greater than										min_memory > 256
+Less than or equal to									min_memory <= 256
+Greater than or equal to								min_memory >= 512
+Not equal to										min_memory != 512
+Variable exists										min_memory is defined
+Variable does not exist									min_memory is not defined
+Boolean variable is true. The values of 1, True, or yes evaluate to true.		memory_available
+Boolean variable is false. The values of 0, False, or no evaluate to false.		not memory_available
+First variable’s value is present as a value in second variable’s list			ansible_distribution in supported_distros
+or      										when: ansible_distribution == "RedHat" or ansible_distribution == "Fedora"
+and 											when: ansible_distribution_version == "7.5" and ansible_kernel == "3.10.0-327.el7.x86_64"<F9> 
+
+
+combination of 'and' and 'or'  :
+-----------------------------------
+  when: >
+    ( ansible_distribution == "RedHat" and
+      ansible_distribution_major_version == "7" ) 
+    or
+    ( ansible_distribution == "Fedora" and 
+      ansible_distribution_major_version == "28" )
+
+multiple condition defined:
+----------------------------
+when:
+  - ansible_distribution_version == "7.5"
+  - ansible_kernel == "3.10.0-327.el7.x86_64"
+
+Combining Loops and Conditional Tasks:
+---------------------------------------
+You can combine loops and conditionals. In the following example, the mariadb-server package is installed by the yum module if there is a file system mounted on / with more than 300 MB free. The ansible_mounts fact is a list of dictionaries, each one representing facts about one mounted file system. The loop iterates over each dictionary in the list and the conditional statement is not met unless a dictionary is found representing a mounted file system where both conditions are true.
+
+- name: install mariadb-server if enough space on root 
+  yum:
+    name: mariadb-server
+    state: latest
+  loop: "{{ ansible_mounts }}"
+  when: item.mount == "/" and item.size_available > 300000000
+
+
+

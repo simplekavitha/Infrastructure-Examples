@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  tasks:
+   - name: display the valures
+     debug:
+       msg: name is "{{ item[0] }}" and "{{ item[1] }}.*:ALL" 
+     with_nested:
+        - [ 'alice', 'bob' ]
+        - [ 'clientdb', 'employeedb', 'providerdb' ]
+    

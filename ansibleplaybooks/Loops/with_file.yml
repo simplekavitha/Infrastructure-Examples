@@ -1,0 +1,9 @@
+---
+- hosts: all
+  tasks:
+  # emit a debug message containing the content of each file.
+   - debug:
+      msg: "{{ item }}"
+     with_file:
+      - first_example_file
+      - second_example_file

@@ -1,0 +1,27 @@
+#with_fileglob matches all files in a single directory, non-recursively, that match a pattern.
+#Note
+#
+#When using a relative path with with_fileglob in a role, Ansible resolves the path relative to the roles/<rolename>/files directory.
+
+
+
+---
+- hosts: all
+
+    tasks:
+
+                # first ensure our target directory exists
+                #     - name: Ensure target directory exists
+                #           file:
+                #                   dest: "/etc/fooapp"
+                #                           state: directory
+                #
+                #                               # copy each file over that matches the given pattern
+                #                                   - name: Copy each file over that matches the given pattern
+                #                                         copy:
+                #                                                 src: "{{ item }}"
+                #                                                         dest: "/etc/fooapp/"
+                #                                                                 owner: "root"
+                #                                                                         mode: 0600
+                #                                                                               with_fileglob:
+                #                                                                                       - "/playbooks/files/fooapp/*"

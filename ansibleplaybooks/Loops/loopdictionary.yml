@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  vars:
+    team:
+      Environment: QA
+      Application: Cart
+      Another: tiger
+  tasks:
+    - name: create a tag dictionary of non-empty tags to set facts
+      set_fact:
+        team_dict: “{{ (team_dict|default({{}}))|combine({item.key  item.value})}}”
+      loop: “{{ team | dict2items }}”
+      when: item.value !=””
+
