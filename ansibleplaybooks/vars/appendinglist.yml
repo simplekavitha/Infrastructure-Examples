@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  gather_facts: True
+  connection: local
+  vars:
+    mylist1:
+      - abc
+      - efg
+    mylist2:
+      - jane
+      - john
+    mylist: "{{ mylist1 + mylist2 }}"
+    mydests:
+      default: /tmp/foo/
+      jane: /tmp/bar
+  tasks:
+    - file:
+        path: "{{ item.value }}"
+        state: directory
+      loop: "{{ mydests | dict2items }}"
+
+    - copy:
+        content:  this is a test
+        dest: "{{ mydests[item] | default(mydests['default']) }}/{{ item }}.txt"
+      loop: "{{ mylist }}"

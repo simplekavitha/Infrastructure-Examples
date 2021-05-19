@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  vars:
+    database: "{{ databasename }}"
+    postgress: 
+      vgname: volument
+      vgcenter: vgcenter1
+    sql: 
+      vgname: sqlvolume
+      vgcenter: sqlcenter
+
+  tasks:
+    - name: debug values
+      debug:
+        msg: "{{ postgress['vgname'] }}"
+    - name: define variable
+      set_fact:
+        vgname:  "{{ postgress.vgname }}"
+        vgcenter: "{{ postgress.vgcenter }}"
+      when: database == "postgress"
+    - name: define sql values
+      set_fact: 
+        vgname: "{{ sql.vgname }}"
+        vgcenter: "{{ sql.vgcenter }}"
+      when: database == "sql"
+    - name: display message
+      debug:
+        msg: |
+         vgname {{ vgname }} and vgcenter {{ vgcenter }}

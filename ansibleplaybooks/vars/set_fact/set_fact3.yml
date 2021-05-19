@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  gather_facts: True
+  vars:
+    all_ipv4: "ipvalue"
+  tasks:
+    - name: combine all ipv4
+      set_fact: 
+        all_ipv4: raja + rani
+        
+    - name: reduce to matching ip's
+      set_fact:
+        matching_ipv4s: "{{ all_ipv4 | ipaddr('192.168.0.0/24') | unique }}"
+        
+    - name: output
+      debug:
+        var: matching_ipv4s
+      

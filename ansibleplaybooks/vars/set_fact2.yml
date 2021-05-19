@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+gather_facts: false
+#connection: local
+vars:
+nvidia_cards_and_drivers:
+# Comment the following list item to see the difference
+- model: "Quadro FX 5800"
+driver_version: "300x"
+- model: "Quadro 4000"
+driver_version: "390xx"
+tasks:
+- name: select driver version for model
+set_fact:
+driver_ver: "{{ nvidia_cards_and_drivers|selectattr('model', 'equalto', 'Quadro FX 5800')|map(attribute='driver_version')|list }}"
+
+- name: select driver version for model
+set_fact:
+driver_ver1: "{{ nvidia_cards_and_drivers|selectattr('model', 'equalto', 'Quadro FX 580')|map(attribute='driver_version')|list }}"
+
+- name: do something with it
+debug:
+msg: "{{ driver_ver if driver_ver else 'needs latest drv' }}"
+
+- name: do something with it
+debug:
+msg: "{{ driver_ver1 if driver_ver1 else 'needs latest drv' }}"

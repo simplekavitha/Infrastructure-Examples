@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  gather_facts: False
+  connection: local
+  vars:
+    test_matrix_configs: ['tlsproxy']
+    neutron: telescope
+
+  tasks:
+    - set_fact:
+        test_matrix_configs: "{{ test_matrix_configs + [ 'neutron' ] }}"
+    - debug:
+        var: test_matrix_configs

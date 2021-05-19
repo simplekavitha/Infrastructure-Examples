@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  gather_facts: false
+  vars:
+   foo: ''
+   bar: foo
+   #abc
+   xyz: true
+  tasks:
+   - debug:
+      msg: "{{ foo|default(false) }}"
+
+   - debug:
+      msg: "{{ foo|default(false, true) }}"
+   - debug:
+      msg: "{{ bar|default(false) }}"
+   - debug:
+      msg: "{{ bar|default(false, true) }}"
+   - debug:
+      msg: "{{ abc|default(false) }}"
+
+   - debug:
+      msg: "{{ abc|default(false, true) }}"
+
+   - debug:
+      msg: "{{ xyz|default(false) }}"
+
+   - debug:
+      msg: "{{ xyz|default(false, true) }}"
