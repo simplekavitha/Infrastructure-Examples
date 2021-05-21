@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  vars:
+   disktype: postgress
+   databases:
+    postgress:
+     vg: pvg
+     lvm: pglvm
+    chroot:
+     vg: chvg
+     lvm: chlvm
+   testvar: "{{ databases['disktype']['vg'] }}"
+  tasks:
+   - name: display values
+     debug:
+       msg: "{{ testvar }}"
+   - name: display the message
+     debug:
+      msg:  the value of the postgrees vg is  "{{ databases['disktype']['vg'] }}"
+

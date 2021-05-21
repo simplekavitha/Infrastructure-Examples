@@ -1,0 +1,33 @@
+#Task List children is like a nested loop over families list (outer loop) and over children subelement in each family (inner loop).
+#So you should provide a list of dicts as first argument to subelements and name of subelement you want to iterate inside each outer item.
+
+#This way item.0 (family in my example) is an outer item and item.1 (child in my example) is an inner item.
+
+#In Ansible docs example subelements is used to loop over users (outer) and add several public keys (inner).
+
+#The new way to do it is with loop: "{{ families|subelements('children') }}"
+---
+- hosts: localhost
+  vars:
+   families:
+    - surname: kalleti
+      Children:
+       - name: anil
+         age: 40
+       - name: kavitha
+         age: 25
+    - surname: devuser
+      Children:
+       - name: suresh
+         age: 45
+       - name: siva
+         age: 20
+  tasks:
+   - name: display message
+     debug: 
+      msg: "users={{ item.0.surname }} Child={{ item.1.name }} Age={{ item.1.age }}"
+     with_subelements:
+      - "{{ families }}"
+      - Children
+
+

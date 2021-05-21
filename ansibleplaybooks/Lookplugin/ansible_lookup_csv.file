@@ -1,0 +1,18 @@
+#The csvfile lookup reads the contents of a file in CSV (comma-separated value) format. 
+#The lookup looks for the row where the first column matches keyname, and returns the value in the second column, unless a different column is specified.
+#
+#  lookup('csvfile', 'key arg1=val1 arg2=val2 ...')
+#  The first value in the argument is the key, which must be an entry that appears exactly once in column 0 (the first column, 0-indexed) of the table. All other arguments are optional.
+#
+#  Field	Default	Description
+#  file	ansible.csv	Name of the file to load
+#  delimiter	TAB	Delimiter used by CSV file. As a special case, tab can be specified as either TAB or t.
+#  col	1	The column to output, indexed by 0
+#  default	empty string	return value if the key is not in the csv file
+
+---
+- hosts: all 
+  tasks:
+   - debug:
+      msg="Population of Mumbai is {{lookup('csvfile', 'Mumbai file=city-data.csv delimiter=, col=2')}}"
+

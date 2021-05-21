@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  vars:
+   motd_value: "{{ lookup('file', '/home/grandmaster/Infrastructure-Examples/ansibleplaybooks/Lookplugin/text') }}"
+  tasks:
+   - debug:
+      msg: "motd value is {{ motd_value }}"
+   - debug: msg="{{ lookup('env','HOME') }} is an environment variable"
+   - debug: msg="{{ lookup('vars','ansible_node') }}"

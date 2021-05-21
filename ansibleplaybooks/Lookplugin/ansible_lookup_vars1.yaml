@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  vars:
+   myvar: hostname
+   myvar1: "{{ lookup('vars', 'ansible_hostname')}}"
+  tasks:
+    - name: display the value of the variable
+      debug:
+        msg: "{{ lookup('vars', 'ansible_' + myvar)}}"
+    
+    - name: display the value of the variable
+      debug:
+        msg: "{{ myvar1 }}"

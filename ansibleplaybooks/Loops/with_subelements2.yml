@@ -1,0 +1,27 @@
+#I came across a situation where I needed to loop through a list inside a dictionary inside a list.  For this specific case I had a list of users, and each user could have multiple authorized sshkeys stored in a “pubkeys” value.  To add each sshkey I used subelements in Ansible to loop through multiple lists.
+
+#Here’s an example variable.  Note that there are two users, one user has two public keys, and the other has one:
+#In this case “host_local_users” is a list.  Each item of “host_local_users” is a dictionary.  The key “pubkeys” is a list.  Now say we want to have a task that adds each key under pubkeys for the user in “name”.
+#
+#There’s a lot going on in this one task!  First note that the “loop” parameter is using our “host_local_users” variable.  We’re using the “subelements” filter to pick out the list of ssh keys for each user.  Each item of host_local_users is represented by “item.0”.  Each item of pubkeys is represented by “item.1” (note that we provided ‘pubkeys’ to the “subelements” filter).
+
+---
+- hosts: localhost
+  vars:
+   host_local_users:
+    - name: user1
+      pubkeys:
+       - 'ssh-rsa myr4nd0mk3y engonzal@home'
+       - 'ssh-rsa my000r4nd0m000k3y000tw0 engonzal@workstation'
+    - name: user2
+      pubkeys:
+       - 'ssh-rsa myr4nd0mk3y engonzal@home'
+  tasks:
+   - name: Add public keys to authorized_hosts
+     debug:
+      msg:
+       user: "{{ item.0.name }}"
+       state: "{{ item.0.state | default('present') }}"
+       key: "{{ item.1 }}"
+     loop: "{{ host_local_users | subelements('pubkeys', 'skip_missing=True') }}"
+

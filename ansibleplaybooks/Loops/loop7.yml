@@ -26,7 +26,7 @@
     env: prod
   tasks:
     - set_fact:
-        myvar: "{{ myvar|default([])|union([item.0]) }}"
+        myvar: "{{ myvar|default([])|union([item.1]) }}"
       with_subelements:
         - "{{ postgresql_users[env] }}"
         - users

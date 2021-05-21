@@ -1,0 +1,15 @@
+Config:    This is to lookup the current values from the Ansible Configuration
+csvfile:   This is used to use data from a CSV
+dict:      This plugin is used to return values in key-value
+dig:       This is used to query DNS by using a library named
+env:       This is used to read the values of env.
+file:      This is used to read the contents of a file
+mini:      This plugin is to read contents from an ini
+inventory_hostnames:  To return the list of matching pattern
+Items:      To return the item’s list
+lines:      To read a line from the command
+list:       To return the same output which is given as
+password:   To generate or retrieve a random
+template:   To return contents of a file after using jinja2 to template
+url:        This is used to get specific content from a
+vars:       This is to lookup the variables which are either templated or declared in Play

@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+ animals:
+mammals:
+humans:
+eyes: many-colored
+legs: two
+birds:
+cardinals:
+eyes: black
+feathers: blue # <-- I want to change this to 'red'.
+
+tasks:
+- name: Change animals.birds.cardinals.feathers to "red".
+set_fact:
+animals: "{{ animals|combine({'birds': {'cardinals': {'feathers': 'red'}}}, recursive=True) }}"
+
+- name: Echo the updated animals var to the screen.
+debug: var=animals

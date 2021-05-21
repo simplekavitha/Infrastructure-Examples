@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  tasks:
+   - debug:
+      msg: "{{ item.0.key }}: {{ item.1 }}: {{ teams[item.0.key].index(item.1) + 1 }}"
+     with_subelements:
+      - "{{ teams|dict2items }}"
+      - value
+  vars:
+   teams:
+    Name-of-Team_A:
+     - app_name_a
+     - app_name_b
+    Name-of-Team_B:
+     - app_name_c
+     - app_name_d

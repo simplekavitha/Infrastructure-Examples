@@ -7,4 +7,12 @@
      with_nested:
         - [ 'alice', 'bob' ]
         - [ 'clientdb', 'employeedb', 'providerdb' ]
+   
+   - name: display the valures
+     debug:
+      msg: name is "{{ item[0] }}" and "{{ item[1] }} and {{ item[2] }}" 
+     with_nested:
+       - [ 'rani','raju','kavitha' ]
+       - [ 'tesstl','test2' ]
+       - [ 'temper1' ]
     

@@ -1,0 +1,33 @@
+---
+- hosts: localhost
+  vars:
+   vmware_resource_disk_type: pgsql 
+   lv: "{{ vmware_resource_secondary_disk[vmware_resource_disk_type]['lv'] }}"
+   mount: "{{ vmware_resource_secondary_disk[vmware_resource_disk_type]['mount'] }}"
+   vg: "{{ vmware_resource_secondary_disk[vmware_resource_disk_type]['mount'] }}"
+   vmware_resource_secondary_disk:
+    pgsql:
+     vg: vg_pgsql
+     lv: lv_pgsql
+     mount: /var/lib/pgsql
+    mysql:
+     vg: vg_mysql
+     lv: lv_mysql
+     mount: /mysql
+  tasks:
+          #- name: define varible values
+     #set_fact:
+     # vmware_resource_disk_vg: "{{ item.value.vg }}"
+     # with_dict: "{{ vmware_resource_secondary_disk }}"
+     #when:  vmware_resource_secondary_disk == pgsql:Wq!
+
+   - name: display values
+     debug: 
+      msg: 
+       - "{{ lv }}"
+       - "{{ mount }}"
+      
+
+
+                                                        
+

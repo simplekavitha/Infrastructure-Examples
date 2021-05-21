@@ -1,0 +1,60 @@
+NOTE:- Lookups occur on the local computer, not on the remote computer.
+
+#Method to invoke lookup plugins
+---------------------------------
+Method 1 – using lookup
+Method 2 – Using query
+In Ansible 2.5, a new jinja2 function called query was added for invoking lookup plugins. The difference between lookup and query is largely that query will always return a list. The default behavior of lookup is to return a string of comma separated values. lookup can be explicitly configured to return a list using wantlist=True.
+
+The following examples are equivalent:
+
+lookup(‘dict’, dict_variable, wantlist=True)
+query(‘dict’, dict_variable)
+
+
+Location of lookup plugins directory :-
+--------------------------------------
+
+Default location:  ~/.ansible/plugins/lookup:/usr/share/ansible/plugins/lookup
+Another Location:  ansible/plugins/lookup directory inside current ansible python package
+Or with ANSIBLE_LOOKUP_PLUGINS environment variable
+
+How to Using Lookup Plugins?
+---------------------------------
+Lookup plugins can be used anywhere you can use templating in Ansible:
+
+in a play,
+in variables file, or
+in a Jinja2 template for the template module
+
+
+ommand line to see Plugin List?
+---------------------------------
+
+To see the list of available plugins.
+$ ansible-doc -t lookup -l 
+
+To see specific documents and examples
+$ ansible-doc -t lookup <plugin name>
+
+
+Lets understand about Lookup Plugins :-
+---------------------------------------
+
+Lookup plugins allow Ansible to access data from outside sources. This can include reading the filesystem in addition to contacting external datastores and services.
+Like all templating, these plugins are evaluated on the Ansible control machine, not on the target/remote i.e Lookups occur on the local computer, not on the remote computer.
+The data returned by a lookup plugin is made available using the standard templating system in Ansible, and are typically used to load variables or templates with information from those systems.
+
+Lookups are an Ansible-specific extension to the Jinja2 templating language.
+
+They are executed within the directory containing the role or play, as opposed to local tasks which are executed with the directory of the executed script.
+
+You can pass wantlist=True to lookups to use in jinja2 template “for” loops.
+These are used mainly by the template engine inside Ansible. They’re used in two ways.
+
+First, in a function syntax to load external information:
+
+{{lookup(pipe’,/usr/bin/whoami’)}}
+{{lookup(etcd’,somekey’)}} – this allows you to fetch a key out of an NCD store.
+
+Second, lookup plugins are also the source of with loops (with_items loads the items.py lookup plugin). Furthermore, they are always expected to return a list of items, because of their potential use with loops.

@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  vars:
+   myvar: | 
+     this is anil.
+     this is rakes.
+     this is rani.
+  tasks:
+   - debug:
+      msg: "{{ myvar }}"
+   - debug:
+      msg: |+
+       {{ myvar }}
+   - debug:
+       msg: >-
+        {{ myvar }}
+   - debug:
+       msg: "{{ myvar.split('\n') }}"
+
+
+
