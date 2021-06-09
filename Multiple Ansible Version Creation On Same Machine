@@ -1,0 +1,104 @@
+
+Note:    Before creating the ansible virtual environment, remove the existing ansible packages
+ 
+Create Virtual Environments
+
+	1) First, we will need to create a folder that we’ll use to store the virtual environments. I recommend that you do not create these environments inside your project folders. I have a folder called ‘python-venv‘ in my home directory, which I use for all my virtual environments.
+                          mkdir ~/python-env
+
+
+	2) We create a virtual environment using the Python ‘venv‘ module (note that this is built into Python3)
+         
+   In this example, I am going to create two environments that will provide different   versions of Ansible for me to use.
+                      cd ~/python-env
+      
+      python3 -m venv ansible2.7
+      python3 -m venv ansible2.8
+      python3 -m venv ansible2.9
+3)
+This will create the directories ‘ansible2.7.‘ and ‘ansible2.8‘ and ansible2.9 under ‘~/python-env‘, that contains the binaries and base libraries for the environment.
+
+
+ 4)  Next, we need to activate an environment by sourcing an environment file in the bin directory. Let’s activate the ‘ansible2.7‘ environment.
+     
+     source ansible2.7.0/bin/activate
+grandmaster@grandmaster-Virtual-Machine:~/python-env$ source ansible2.7/bin/activate
+(ansible2.7) grandmaster@grandmaster-Virtual-Machine:~/python-env$
+
+5)
+Currently, this environment has no modules installed. The first thing we will want to do is upgrade ‘pip‘ and ‘setuptools‘.
+ 
+pip install --upgrade pip 
+Pip install --upgrade setuptools
+
+Next, let’s install ansible 2.7.0. PIP will default to install the latest version, but we can override this using == and force a specific version to be installed.
+pip install ansible==2.7.0
+ 
+Once the installation process completes, we can confirm that the version of Ansible has been installed:
+ 
+ansible --version
+
+(ansible2.7) grandmaster@grandmaster-Virtual-Machine:~/python-env$ ansible --version
+ansible 2.7.0
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = ['/home/grandmaster/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/grandmaster/python-env/ansible2.7/lib/python3.8/site-packages/ansible
+  executable location = /home/grandmaster/python-env/ansible2.7/bin/ansible
+  python version = 3.8.5 (default, May 27 2021, 13:30:53) [GCC 9.3.0]
+We can also see a list of Python packages that have been installed in this environment using ‘pip list’.
+
+(ansible2.7) grandmaster@grandmaster-Virtual-Machine:~/python-env$ pip list
+Package       Version
+------------- -------
+ansible       2.7.0
+bcrypt        3.2.0
+cffi          1.14.5
+cryptography  3.4.7
+Jinja2        3.0.1
+MarkupSafe    2.0.1
+paramiko      2.7.2
+pip           21.1.2
+pkg-resources 0.0.0
+pycparser     2.20
+PyNaCl        1.4.0
+PyYAML        5.4.1
+setuptools    57.0.0
+six           1.16.0
+
+	6) Set up second( ansible 2.8) and third (ansible 2.9) environment Run 4 and 5 steps for changing the virtual environment and install anisble versions
+	7) Now, let’s deactivate the environment by simply typing ‘deactivate‘ in the shell.
+	
+(ansible2.7) grandmaster@grandmaster-Virtual-Machine:~/python-env$ deactivate
+  grandmaster@grandmaster-Virtual-Machine:~/python-env$
+ 
+Note: You’ll notice that the shell has returned to normal. Also, if you type the ansible command again, it should return as command not found (unless you already had it installed in the base system).
+	
+	
+	
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Creating a Portable Environment
+
+Now that we have the environments set up, we can use pip to install any packages that we want to use directly into the environment, without risk of contaminating the base system packages. Another feature that we can use is the ability to create a ‘requirements.txt‘ file that can be used to create another environment with exactly the same packages and dependencies installed. This makes it easy for other users to consume your Ansible content and ensure they have the required packages and dependencies installed along with the specific versions that should be used.
+Activate one of your environments (or use an environment that you already have activated) and type the following command:
+
+pip freeze
+
+Similar to the ‘pip list‘ command, ‘pip freeze‘ displays all the packages and their versions that have been installed in the environment, but presents them in a specific format that allows them to be understood by ‘pip‘.
+You can export this list to a text file called ‘requirements.txt‘ as follows (usually at the root of your project):
+
+pip freeze > requirements.txt
+
+The default for package requirements is to hard-set the specific version that is installed with ==. However, you can edit the file and change this to >= if you want to install a version that is equal to or greater than the specified version. You can also omit the version altogether and pip will install the latest available. Do note though, that this can be a risk if you have never tested your playbooks on newer versions and can lead to unpredictable outcomes.
+
+Import an Environment based on provided requirements.txt
+
+If a project has a ‘requirements.txt‘ that includes a list of Python packages then it’s really simple to bootstrap the environment using ‘pip install‘ and the ‘-r‘ flag.
+Let’s add an additional package to the requirements file first:
+
+echo "requests" >> requirements.txt
+
+And now bootstrap the environment by installing packages specified in the ‘requirements.txt‘ file.
+
+pip install -r requirements.txt
+
+Notice that the existing packages were already satisfied so pip skipped these, but the ‘requests‘ package was not installed and pip installed this because it was defined in the ‘requirements.txt‘ file.
