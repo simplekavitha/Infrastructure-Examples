@@ -1,3 +1,21 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+if [ "$ENV" == "uksat" ]; then
+
+    ssh rms@${DBServer} 'sh /home/rms/administration/singleExistingDBRefreshUK.sh' $CLIENT $ENVR $CLIENTR $MAIL $ApplyReleaseScripts $RELEASE $BACKUPDATE
+
+elif [ "$ENV" == "impldbuk" ]; then
+
+    ssh rms@${DBServer} 'sh /home/rms/administration/singleExistingDBRefreshUK.sh' $CLIENT $ENVR $CLIENTR $MAIL $ApplyReleaseScripts $RELEASE $BACKUPDATE
+else
+
+    ssh rms@${DBServer} 'sh /home/rms/administration/singleExistingDBRefresh.sh' $CLIENT $ENVR $CLIENTR $MAIL $ApplyReleaseScripts $RELEASE $BACKUPDATE
+fi
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 #!/bin/bash -e
 #Re Init the database
 #RELEASE="4.7"
