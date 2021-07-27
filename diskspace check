@@ -1,0 +1,53 @@
+https://groups.google.com/g/ansible-project/c/lnDlMfhetwU
+
+
+Ansible Disk Usage and Disk Space Full Alert generation Script:-----
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+
+---
+ - hosts: "{{ hostGroup }}"
+   user: gamesroot
+   become: true
+   become_user: root
+   gather_facts: no
+   tasks:
+   - shell: df -h "{{ item }}" | tail -n 1 | awk {'print $5 '}  | sed 's/%//g'
+     with_items:
+      - /
+      - /home
+      - /backup
+     register: test
+   - name: Size is big
+    debug:
+      msg:  "too big size: {{ item}} "
+    when: item > "20"
+    with_items: "{{ test.results|map(attribute='stdout')|list}}"
+    
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   vars:
+    filesystems:
+      - /
+      - /tmp
+
+    size_too_big: "20"
+
+  tasks:
+
+...
+
+  - name: Size is big v2
+    debug:
+      msg:  "{{ item.1 }} is too big! size={{ item.0 }} "
+    when: item.0 > size_too_big
+    with_together:
+       - "{{ test.results|map(attribute='stdout')|list }}"
+       - "{{ filesystems }}"
+       
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  -------------------------------------------------------
+     
+     
+     
+     
